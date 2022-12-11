@@ -1,7 +1,7 @@
 project "Walnut"
    kind "StaticLib"
    language "C++"
-   cppdialect "C++17"
+   cppdialect "C++latest"
    targetdir "bin/%{cfg.buildcfg}"
    staticruntime "off"
 
@@ -32,21 +32,21 @@ project "Walnut"
 
    filter "system:windows"
       systemversion "latest"
-      defines { "WL_PLATFORM_WINDOWS" }
+      defines { "PS_PLATFORM_WINDOWS" }
 
    filter "configurations:Debug"
-      defines { "WL_DEBUG" }
+      defines { "PS_DEBUG" }
       runtime "Debug"
       symbols "On"
 
    filter "configurations:Release"
-      defines { "WL_RELEASE" }
+      defines { "PS_RELEASE" }
       runtime "Release"
       optimize "On"
       symbols "On"
 
    filter "configurations:Dist"
-      defines { "WL_DIST" }
+      defines { "PS_DIST" }
       runtime "Release"
       optimize "On"
       symbols "Off"

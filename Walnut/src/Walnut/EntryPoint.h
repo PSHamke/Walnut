@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef WL_PLATFORM_WINDOWS
+#ifdef PS_PLATFORM_WINDOWS
 
 extern Walnut::Application* Walnut::CreateApplication(int argc, char** argv);
 bool g_ApplicationRunning = true;
@@ -21,7 +21,7 @@ namespace Walnut {
 
 }
 
-#ifdef WL_DIST
+#ifdef PS_DIST
 
 #include <Windows.h>
 
