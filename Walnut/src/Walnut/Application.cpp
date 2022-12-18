@@ -15,10 +15,11 @@
 #include <glm/glm.hpp>
 
 #include <iostream>
-
+#include <fstream>
 // Emedded font
 #include "ImGui/Roboto-Regular.embed"
-
+#include "ImGui/FontAwesome.h"
+#include "stb_image.h"
 extern bool g_ApplicationRunning;
 
 // [Win32] Our example includes a copy of glfw3.lib pre-compiled with VS2010 to maximize ease of testing and compatibility with old VS compilers.
@@ -415,7 +416,14 @@ namespace Walnut {
 		}
 
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+
 		m_WindowHandle = glfwCreateWindow(m_Specification.Width, m_Specification.Height, m_Specification.Name.c_str(), NULL, NULL);
+
+		GLFWimage images[1];
+		const char* logoPath = "../Walnut/Walnut/src/Walnut/Resources/logo.png";
+		images[0].pixels = stbi_load(logoPath, &images[0].width, &images[0].height, 0, 4); //rgba channels 
+		glfwSetWindowIcon(m_WindowHandle, 1, images);
+		stbi_image_free(images[0].pixels);
 
 		// Setup Vulkan
 		if (!glfwVulkanSupported())
@@ -448,7 +456,7 @@ namespace Walnut {
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 		//io.ConfigViewportsNoAutoMerge = true;
 		//io.ConfigViewportsNoTaskBarIcon = true;
 
@@ -487,7 +495,12 @@ namespace Walnut {
 		fontConfig.FontDataOwnedByAtlas = false;
 		ImFont* robotoFont = io.Fonts->AddFontFromMemoryTTF((void*)g_RobotoRegular, sizeof(g_RobotoRegular), 20.0f, &fontConfig);
 		io.FontDefault = robotoFont;
+		static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+		ImFontConfig icons_config; icons_config.MergeMode = true; icons_config.PixelSnapH = true;
+		const char* fontFile = "../Walnut/Walnut/src/Walnut/ImGui/FontAwesome.ttf";
 
+
+		io.Fonts->AddFontFromFileTTF(fontFile, 16.0f, &icons_config, icons_ranges);
 		// Upload Fonts
 		{
 			// Use any command queue
