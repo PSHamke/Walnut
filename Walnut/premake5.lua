@@ -14,6 +14,7 @@ project "Walnut"
       "../vendor/imgui",
       "../vendor/glfw/include",
       "../vendor/stb_image",
+      "../vendor/implot",
 
       "%{IncludeDir.VulkanSDK}",
       "%{IncludeDir.glm}",
@@ -23,7 +24,7 @@ project "Walnut"
    {
        "ImGui",
        "GLFW",
-
+       "implot",
        "%{Library.Vulkan}",
    }
 
